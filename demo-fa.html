@@ -1,0 +1,1892 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Villa Park — سالن زیبایی ویلاپارک (Neumorphism)</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dana-team/dana-font@latest/dist/dana.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        :root {
+            --bg: #EAE6DF;
+            --shadow-light: #ffffff;
+            --shadow-dark: #c5bcae;
+            --ruby: #7A6357;
+            --saffron: #443d30;
+            --gold: #8C7B5B;
+            --text-dark: #4A443E;
+            --text-m: #7A746D;
+            --text-d: #9A948C;
+            --r: 24px;
+            --neo-out: 10px 10px 20px var(--shadow-dark), -10px -10px 20px var(--shadow-light);
+            --neo-out-sm: 5px 5px 10px var(--shadow-dark), -5px -5px 10px var(--shadow-light);
+            --neo-in: inset 8px 8px 16px var(--shadow-dark), inset -8px -8px 16px var(--shadow-light);
+            --neo-in-sm: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Dana', sans-serif;
+            background: var(--bg);
+            color: var(--text-dark);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        .wrap {
+            position: relative;
+            z-index: 1;
+            overflow-x: hidden;
+        }
+
+        .neo-card {
+            background: var(--bg);
+            border-radius: var(--r);
+            box-shadow: var(--neo-out);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .neo-pressed {
+            background: var(--bg);
+            border-radius: var(--r);
+            box-shadow: var(--neo-in);
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 0 40px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg);
+            box-shadow: 0 5px 15px rgba(197, 188, 174, 0.3);
+            transition: all .4s;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .nav-logo-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--bg);
+            box-shadow: var(--neo-out-sm);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--ruby);
+            font-weight: 700;
+            font-family: 'Cormorant Garamond', serif;
+            overflow: hidden;
+        }
+
+        .nav-logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .nav-brand {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            color: var(--ruby);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-m);
+            text-decoration: none;
+            transition: color .3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--ruby);
+        }
+
+        .nav-cta {
+            font-size: 13px;
+            font-weight: 700;
+            padding: 10px 24px;
+            border-radius: 100px;
+            background: var(--bg);
+            box-shadow: var(--neo-out-sm);
+            color: var(--ruby);
+            text-decoration: none;
+            transition: all .3s;
+        }
+
+        .nav-cta:hover {
+            box-shadow: var(--neo-in-sm);
+            color: var(--saffron);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 28px;
+            height: 3px;
+            background: var(--ruby);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -6px);
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 320px;
+            height: 100vh;
+            background: var(--bg);
+            box-shadow: var(--neo-out);
+            padding: 80px 30px 40px;
+            transition: right 0.3s ease;
+            z-index: 99;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .mobile-menu.open {
+            right: 0;
+        }
+
+        .mobile-menu a {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-dark);
+            text-decoration: none;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(197, 188, 174, 0.3);
+            transition: color 0.3s;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--ruby);
+        }
+
+        .mobile-menu .mobile-cta {
+            margin-top: 20px;
+            text-align: center;
+            background: var(--bg);
+            box-shadow: var(--neo-out-sm);
+            border-radius: 100px;
+            padding: 14px;
+            font-weight: 700;
+            color: var(--ruby);
+            border: none;
+            cursor: pointer;
+        }
+
+        .mobile-menu .mobile-cta:hover {
+            box-shadow: var(--neo-in-sm);
+        }
+
+        /* ── هیرو با عکس ── */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            padding-top: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            max-width: 900px;
+            padding: 0 5%;
+            text-align: center;
+            animation: fadeUp 1s ease forwards;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-neo-card {
+            background: var(--bg);
+            border-radius: 40px;
+            padding: 40px 40px 50px;
+            box-shadow: var(--neo-out);
+            border: 3px solid rgba(255, 255, 255, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-img-frame {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: var(--bg);
+            box-shadow: var(--neo-in);
+            padding: 8px;
+            margin-bottom: 30px;
+        }
+
+        .hero-img-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            display: block;
+        }
+
+        .hero-tag {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 14px;
+            font-style: italic;
+            letter-spacing: 4px;
+            color: var(--saffron);
+            margin-bottom: 24px;
+        }
+
+        .hero-title {
+            font-size: clamp(40px, 7vw, 80px);
+            font-weight: 300;
+            line-height: 1.2;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8), -2px -2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .hero-title em {
+            font-style: normal;
+            font-weight: 800;
+            color: var(--ruby);
+        }
+
+        .hero-sub {
+            font-size: 16px;
+            font-weight: 400;
+            color: var(--text-m);
+            max-width: 500px;
+            line-height: 2;
+            margin-bottom: 40px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            font-size: 14px;
+            font-weight: 700;
+            padding: 15px 36px;
+            border-radius: 100px;
+            background: var(--bg);
+            color: var(--ruby);
+            text-decoration: none;
+            transition: all .35s;
+            box-shadow: var(--neo-out-sm);
+        }
+
+        .btn-primary:hover {
+            box-shadow: var(--neo-in-sm);
+            color: var(--saffron);
+        }
+
+        .btn-ghost {
+            font-size: 14px;
+            font-weight: 500;
+            padding: 15px 36px;
+            border-radius: 100px;
+            background: var(--bg);
+            color: var(--text-m);
+            text-decoration: none;
+            transition: all .3s;
+            box-shadow: var(--neo-out-sm);
+        }
+
+        .btn-ghost:hover {
+            box-shadow: var(--neo-in-sm);
+            color: var(--text-dark);
+        }
+
+        .stats-bar {
+            margin: -40px auto 40px;
+            max-width: 1080px;
+            position: relative;
+            z-index: 10;
+            padding: 0 16px;
+        }
+
+        .stats-inner {
+            background: var(--bg);
+            border-radius: 24px;
+            box-shadow: var(--neo-out);
+            display: flex;
+            align-items: stretch;
+            padding: 10px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            flex: 1;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border-radius: 16px;
+            transition: all 0.3s;
+            min-width: 120px;
+        }
+
+        .stat-item:hover {
+            box-shadow: var(--neo-in-sm);
+        }
+
+        .stat-n {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--ruby);
+            margin-bottom: 8px;
+        }
+
+        .stat-l {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-m);
+        }
+
+        .section {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 80px 32px;
+        }
+
+        .sec-hd {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
+        }
+
+        .sec-tag {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 14px;
+            font-style: italic;
+            color: var(--saffron);
+            font-weight: 600;
+        }
+
+        .sec-title {
+            font-size: 30px;
+            font-weight: 300;
+            color: var(--text-dark);
+        }
+
+        .sec-title b {
+            font-weight: 800;
+            color: var(--ruby);
+        }
+
+        .sec-line {
+            flex: 1;
+            height: 2px;
+            background: var(--bg);
+            box-shadow: var(--neo-in-sm);
+            border-radius: 10px;
+            min-width: 40px;
+        }
+
+        /* ⭐ کارت‌های خدمات با اندازه‌های مشابه دموی قبلی */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .svc-card {
+            background: var(--bg);
+            border-radius: 160px 160px 24px 24px;
+            padding: 10px 10px 16px 10px;
+            box-shadow: var(--neo-out);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            transition: all .4s ease;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .svc-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .svc-arch {
+            height: 0;
+            padding-bottom: 120%;
+            /* کاهش ارتفاع نسبت به قبل */
+            position: relative;
+            overflow: hidden;
+            border-radius: 154px 154px 18px 18px;
+            background: var(--bg);
+            box-shadow: var(--neo-in);
+            margin-bottom: 12px;
+            border: 4px solid var(--bg);
+        }
+
+        .svc-arch img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 150px 150px 14px 14px;
+            opacity: 0.9;
+            transition: transform .6s ease;
+        }
+
+        .svc-card:hover .svc-arch img {
+            transform: scale(1.08);
+            opacity: 1;
+        }
+
+        .svc-arch-badge {
+            position: absolute;
+            bottom: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg);
+            box-shadow: var(--neo-out-sm);
+            border-radius: 100px;
+            padding: 6px 20px;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--ruby);
+            z-index: 2;
+        }
+
+        .svc-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .svc-price {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-m);
+        }
+
+        .svc-price span {
+            color: var(--ruby);
+            font-weight: 800;
+            font-size: 18px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .team-card {
+            background: var(--bg);
+            border-radius: 120px 120px 24px 24px;
+            padding: 12px 12px 24px 12px;
+            box-shadow: var(--neo-out);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            text-align: center;
+        }
+
+        .team-arch {
+            width: 100%;
+            padding-bottom: 135%;
+            position: relative;
+            overflow: hidden;
+            border-radius: 114px 114px 16px 16px;
+            background: var(--bg);
+            box-shadow: var(--neo-in);
+            margin-bottom: 20px;
+            border: 6px solid var(--bg);
+        }
+
+        .team-arch img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 108px 108px 10px 10px;
+            filter: grayscale(20%);
+            transition: all .6s ease;
+        }
+
+        .team-card:hover .team-arch img {
+            transform: scale(1.05);
+            filter: grayscale(0%);
+        }
+
+        .team-social {
+            position: absolute;
+            bottom: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 2;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .team-card:hover .team-social {
+            opacity: 1;
+        }
+
+        .team-social-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--bg);
+            box-shadow: var(--neo-out-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: var(--ruby);
+            transition: all .3s;
+            cursor: pointer;
+        }
+
+        .team-social-btn:hover {
+            box-shadow: var(--neo-in-sm);
+            color: var(--saffron);
+        }
+
+        .team-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .team-role {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--saffron);
+            margin-bottom: 12px;
+        }
+
+        .gallery-filter {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            font-size: 13px;
+            font-weight: 600;
+            padding: 10px 24px;
+            border-radius: 100px;
+            background: var(--bg);
+            box-shadow: var(--neo-out-sm);
+            border: none;
+            color: var(--text-m);
+            cursor: pointer;
+            transition: all .3s;
+            font-family: 'Dana', sans-serif;
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            box-shadow: var(--neo-in-sm);
+            color: var(--ruby);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 120px 120px 20px 20px;
+            padding-bottom: 140%;
+            background: var(--bg);
+            box-shadow: var(--neo-out);
+            border: 6px solid var(--bg);
+            cursor: pointer;
+            transition: all .4s;
+            overflow: hidden;
+        }
+
+        .gallery-item:nth-child(3n) {
+            border-radius: 20px;
+            padding-bottom: 110%;
+        }
+
+        .gallery-item:hover {
+            box-shadow: var(--neo-in);
+        }
+
+        .gallery-item img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: inherit;
+            transition: transform .6s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+            opacity: 0.8;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .feat-card {
+            background: var(--bg);
+            border-radius: 30px;
+            padding: 30px;
+            box-shadow: var(--neo-out);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            display: flex;
+            gap: 20px;
+            transition: all 0.35s ease;
+        }
+
+        .feat-card:hover {
+            box-shadow: var(--neo-in);
+        }
+
+        .feat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 20px;
+            background: var(--bg);
+            box-shadow: var(--neo-out-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+            color: var(--ruby);
+            transition: transform 0.3s ease;
+        }
+
+        .feat-card:hover .feat-icon {
+            box-shadow: var(--neo-in-sm);
+            transform: scale(0.95);
+        }
+
+        .feat-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .feat-name {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .feat-desc {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-m);
+            line-height: 1.8;
+        }
+
+        .booking-wrapper {
+            background: var(--bg);
+            box-shadow: var(--neo-out);
+            border-radius: 40px;
+            padding: 40px;
+            border: 3px solid rgba(255, 255, 255, 0.4);
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .booking-label {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--ruby);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .personnel-select,
+        .service-select {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            padding: 20px;
+            background: var(--bg);
+            box-shadow: var(--neo-in);
+            border-radius: 24px;
+        }
+
+        .neo-pill {
+            padding: 12px 24px;
+            border-radius: 100px;
+            background: var(--bg);
+            box-shadow: var(--neo-out-sm);
+            cursor: pointer;
+            transition: all .3s;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-m);
+            user-select: none;
+        }
+
+        .neo-pill:hover {
+            color: var(--ruby);
+        }
+
+        .neo-pill.active {
+            box-shadow: var(--neo-in-sm);
+            color: var(--ruby);
+        }
+
+        .calendar-container {
+            background: var(--bg);
+            box-shadow: var(--neo-in);
+            border-radius: 30px;
+            padding: 30px;
+            width: 100%;
+        }
+
+        .calendar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .calendar-header h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 24px;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .calendar-nav {
+            width: 40px;
+            height: 40px;
+            font-size: 16px;
+            border-radius: 50%;
+            background: var(--bg);
+            box-shadow: var(--neo-out-sm);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--ruby);
+            border: none;
+            transition: all .2s;
+        }
+
+        .calendar-nav:hover {
+            box-shadow: var(--neo-in-sm);
+        }
+
+        .weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--saffron);
+            margin-bottom: 12px;
+        }
+
+        .days-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 12px;
+        }
+
+        .day-cell {
+            aspect-ratio: 1 / 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-dark);
+            cursor: pointer;
+            background: var(--bg);
+            box-shadow: var(--neo-out-sm);
+            transition: all .2s;
+        }
+
+        .day-cell:hover {
+            color: var(--ruby);
+        }
+
+        .day-cell.today {
+            color: var(--saffron);
+        }
+
+        .day-cell.selected {
+            box-shadow: var(--neo-in-sm);
+            color: var(--ruby);
+        }
+
+        .day-cell.disabled {
+            box-shadow: none;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .time-slots {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            padding: 20px;
+            background: var(--bg);
+            box-shadow: var(--neo-in);
+            border-radius: 24px;
+            min-height: 80px;
+            align-items: center;
+        }
+
+        .time-slot {
+            padding: 10px 20px;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            background: var(--bg);
+            box-shadow: var(--neo-out-sm);
+            color: var(--text-m);
+            transition: all .2s;
+        }
+
+        .time-slot:hover {
+            color: var(--ruby);
+        }
+
+        .slot-booked {
+            box-shadow: none;
+            color: #d8aca4;
+            text-decoration: line-through;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .slot-selected {
+            box-shadow: var(--neo-in-sm);
+            color: var(--ruby);
+        }
+
+        .testimonials-track {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .testi-card {
+            padding: 30px;
+            border-radius: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            background: var(--bg);
+            box-shadow: var(--neo-out);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .testi-stars {
+            font-size: 14px;
+            color: var(--gold);
+        }
+
+        .testi-text {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-m);
+            line-height: 2;
+            flex: 1;
+        }
+
+        .testi-foot {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .testi-av {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: var(--bg);
+            box-shadow: var(--neo-in-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--ruby);
+            flex-shrink: 0;
+        }
+
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .contact-info {
+            padding: 40px;
+            border-radius: 30px;
+            background: var(--bg);
+            box-shadow: var(--neo-out);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .contact-brand {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .contact-brand span {
+            color: var(--ruby);
+        }
+
+        .contact-tagline {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-m);
+            margin-bottom: 40px;
+        }
+
+        .contact-row {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .contact-ico {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: var(--bg);
+            box-shadow: var(--neo-in-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+            color: var(--ruby);
+        }
+
+        .contact-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--saffron);
+            margin-bottom: 4px;
+        }
+
+        .contact-value {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-dark);
+            direction: ltr;
+            text-align: right;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 16px;
+            margin-top: 40px;
+        }
+
+        .soc-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--bg);
+            box-shadow: var(--neo-out-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            text-decoration: none;
+            color: var(--ruby);
+            transition: all .3s;
+        }
+
+        .soc-btn:hover {
+            box-shadow: var(--neo-in-sm);
+            color: var(--saffron);
+        }
+
+        .map-placeholder {
+            border-radius: 30px;
+            height: 100%;
+            min-height: 400px;
+            background: var(--bg);
+            box-shadow: var(--neo-in);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 16px;
+            border: 6px solid var(--bg);
+        }
+
+        .map-icon {
+            font-size: 40px;
+            color: var(--ruby);
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);
+        }
+
+        footer {
+            padding: 80px 32px 40px;
+            background: var(--bg);
+            box-shadow: var(--neo-in);
+            margin-top: 60px;
+            border-radius: 40px 40px 0 0;
+        }
+
+        .footer-inner {
+            max-width: 1120px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        .footer-brand-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 26px;
+            font-weight: 600;
+            color: var(--ruby);
+            margin-bottom: 16px;
+        }
+
+        .footer-desc {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-m);
+            line-height: 2;
+            max-width: 280px;
+            margin-bottom: 30px;
+        }
+
+        .footer-col-title {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 24px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 16px;
+        }
+
+        .footer-links a {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-m);
+            text-decoration: none;
+            transition: color .3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--ruby);
+        }
+
+        .footer-bottom {
+            max-width: 1120px;
+            margin: 60px auto 0;
+            padding-top: 30px;
+            border-top: 2px solid rgba(255, 255, 255, 0.5);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .footer-copy {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-m);
+        }
+
+        /* ── تنظیمات ریسپانسیو ── */
+        @media (max-width: 1024px) {
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-inner {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 0 20px;
+            }
+
+            .nav-links,
+            .nav-cta {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .stats-inner {
+                flex-direction: column;
+                gap: 20px;
+                box-shadow: none;
+                background: transparent;
+                padding: 0;
+            }
+
+            .stat-item {
+                background: var(--bg);
+                box-shadow: var(--neo-out);
+                padding: 20px;
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .testimonials-track {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .booking-wrapper {
+                padding: 24px;
+            }
+
+            .section {
+                padding: 60px 20px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-neo-card {
+                padding: 30px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .footer-inner {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .days-grid {
+                gap: 6px;
+            }
+
+            .day-cell {
+                font-size: 16px;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-primary,
+            .btn-ghost {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        img,
+        svg,
+        video,
+        iframe {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .wrap,
+        .section,
+        .stats-bar,
+        footer {
+            overflow-x: hidden;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav id="nav">
+        <a href="#" class="nav-logo">
+            <div class="nav-logo-icon"><img src="./logo.png" alt="logo"></div>
+            <span class="nav-brand">Villa Park</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#services">خدمات</a></li>
+            <li><a href="#team">تیم ما</a></li>
+            <li><a href="#gallery">نمونه‌کارها</a></li>
+            <li><a href="#contact">تماس با ما</a></li>
+        </ul>
+        <a href="#appointment" class="nav-cta">رزرو کنید</a>
+        <button class="hamburger" id="hamburger" aria-label="منو">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#services" class="mobile-link">خدمات</a>
+        <a href="#team" class="mobile-link">تیم ما</a>
+        <a href="#gallery" class="mobile-link">نمونه‌کارها</a>
+        <a href="#contact" class="mobile-link">تماس با ما</a>
+        <a href="#appointment" class="mobile-link mobile-cta">رزرو کنید</a>
+    </div>
+
+    <div class="wrap">
+        <section class="hero" id="hero">
+            <div class="hero-content">
+                <div class="hero-neo-card">
+                    <div class="hero-img-frame"><img src="./logo.png" alt="Villa Park"></div>
+                    <div class="hero-tag">Villa Park Beauty Salon</div>
+                    <h1 class="hero-title">زیبایی<br>به <em>سبک تو</em></h1>
+                    <p class="hero-sub">فضایی لوکس برای تجربه‌ای متفاوت از زیبایی — جایی که هر جزئیات با عشق طراحی شده
+                    </p>
+                    <div class="hero-actions">
+                        <a href="#appointment" class="btn-primary">رزرو نوبت</a>
+                        <a href="#gallery" class="btn-ghost">نمونه‌کارها</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <section class="section" id="services">
+            <div class="sec-hd"><span class="sec-tag">i.</span>
+                <h2 class="sec-title"><b>خدمات</b> ما</h2>
+                <div class="sec-line"></div>
+            </div>
+            <div class="services-grid">
+                <div class="svc-card">
+                    <div class="svc-arch"><img src="./nail9.jpg" alt="مانیکور">
+                        <div class="svc-arch-badge">محبوب‌ترین</div>
+                    </div>
+                    <div class="svc-name">مانیکور</div>
+                    <div class="svc-price">از <span>۲۵۰٬۰۰۰</span> تومان</div>
+                </div>
+                <div class="svc-card">
+                    <div class="svc-arch"><img src="./ped.jpg" alt="کاشت بلند">
+                        <div class="svc-arch-badge">پریمیوم</div>
+                    </div>
+                    <div class="svc-name">کاشت بلند</div>
+                    <div class="svc-price">از <span>۹۵۰٬۰۰۰</span> تومان</div>
+                </div>
+                <div class="svc-card">
+                    <div class="svc-arch"><img src="./hair1.jpg" alt="رنگ و هایلایت">
+                        <div class="svc-arch-badge">جدید</div>
+                    </div>
+                    <div class="svc-name">رنگ و هایلایت</div>
+                    <div class="svc-price">از <span>۱٬۲۰۰٬۰۰۰</span> تومان</div>
+                </div>
+                <div class="svc-card">
+                    <div class="svc-arch"><img src="./2.jpg" alt="کراتین حرفه‌ای"></div>
+                    <div class="svc-name">کراتین حرفه‌ای</div>
+                    <div class="svc-price">از <span>۱٬۸۰۰٬۰۰۰</span> تومان</div>
+                </div>
+                <div class="svc-card">
+                    <div class="svc-arch"><img src="./3.jpg" alt="اکستنشن مژه"></div>
+                    <div class="svc-name">اکستنشن مژه</div>
+                    <div class="svc-price">از <span>۷۵۰٬۰۰۰</span> تومان</div>
+                </div>
+                <div class="svc-card">
+                    <div class="svc-arch"><img src="./hair2.jpg" alt="هد اسپا">
+                        <div class="svc-arch-badge">ویژه</div>
+                    </div>
+                    <div class="svc-name">هد اسپا</div>
+                    <div class="svc-price">از <span>۶۰۰٬۰۰۰</span> تومان</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="appointment">
+            <div class="sec-hd"><span class="sec-tag">ii.</span>
+                <h2 class="sec-title"><b>رزرو</b> آنلاین</h2>
+                <div class="sec-line"></div>
+            </div>
+            <div class="booking-wrapper">
+                <div>
+                    <div class="booking-label"><i class="fa-solid fa-user"></i> انتخاب متخصص</div>
+                    <div class="personnel-select" id="personnelList"></div>
+                </div>
+                <div>
+                    <div class="booking-label"><i class="fa-solid fa-scissors"></i> انتخاب خدمت</div>
+                    <div class="service-select" id="serviceList"></div>
+                </div>
+                <div class="calendar-container">
+                    <div class="calendar-header">
+                        <button class="calendar-nav" id="prevMonth">→</button>
+                        <h4 id="monthTitle"></h4>
+                        <button class="calendar-nav" id="nextMonth">←</button>
+                    </div>
+                    <div class="weekdays">
+                        <span>ش</span><span>ی</span><span>د</span><span>س</span><span>چ</span><span>پ</span><span>ج</span>
+                    </div>
+                    <div class="days-grid" id="daysGrid"></div>
+                </div>
+                <div>
+                    <div class="booking-label"><i class="fa-regular fa-clock"></i> زمان‌های در دسترس</div>
+                    <div class="time-slots" id="timeSlots"><span
+                            style="font-size:14px; color:var(--text-m); font-weight:600;">ابتدا تاریخ را انتخاب
+                            کنید</span></div>
+                </div>
+                <button class="btn-primary" id="submitBooking" style="align-self:flex-end; padding: 16px 40px;"
+                    disabled>تأیید رزرو</button>
+            </div>
+        </section>
+
+        <section class="section" id="team">
+            <div class="sec-hd"><span class="sec-tag">iii.</span>
+                <h2 class="sec-title"><b>تیم</b> متخصصان</h2>
+                <div class="sec-line"></div>
+            </div>
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-arch"><img src="./bhar.jpg" alt="بهار خمسه">
+                        <div class="team-social">
+                            <div class="team-social-btn"><i class="fa-brands fa-instagram"></i></div>
+                        </div>
+                    </div>
+                    <div class="team-name">بهار خمسه</div>
+                    <div class="team-role">بنیان‌گذار · متخصص مو</div>
+                </div>
+                <div class="team-card">
+                    <div class="team-arch"><img src="./sara.jpeg" alt="سارا احمدی">
+                        <div class="team-social">
+                            <div class="team-social-btn"><i class="fa-brands fa-instagram"></i></div>
+                        </div>
+                    </div>
+                    <div class="team-name">سارا احمدی</div>
+                    <div class="team-role">متخصص ناخن</div>
+                </div>
+                <div class="team-card">
+                    <div class="team-arch"><img src="./maede.jpeg" alt="مائده رضایی">
+                        <div class="team-social">
+                            <div class="team-social-btn"><i class="fa-brands fa-instagram"></i></div>
+                        </div>
+                    </div>
+                    <div class="team-name">مائده رضایی</div>
+                    <div class="team-role">متخصص ابرو و میکرو</div>
+                </div>
+                <div class="team-card">
+                    <div class="team-arch"><img src="./bhar.jpg" alt="لیلا موسوی">
+                        <div class="team-social">
+                            <div class="team-social-btn"><i class="fa-brands fa-instagram"></i></div>
+                        </div>
+                    </div>
+                    <div class="team-name">لیلا موسوی</div>
+                    <div class="team-role">متخصص پوست و اسپا</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="gallery">
+            <div class="sec-hd"><span class="sec-tag">iv.</span>
+                <h2 class="sec-title"><b>نمونه‌کارها</b></h2>
+                <div class="sec-line"></div>
+            </div>
+            <div class="gallery-filter">
+                <button class="filter-btn active" onclick="filterGallery(this, 'all')">همه</button>
+                <button class="filter-btn" onclick="filterGallery(this, 'nail')">ناخن</button>
+                <button class="filter-btn" onclick="filterGallery(this, 'hair')">مو</button>
+                <button class="filter-btn" onclick="filterGallery(this, 'brow')">ابرو</button>
+                <button class="filter-btn" onclick="filterGallery(this, 'spa')">اسپا</button>
+            </div>
+            <div class="gallery-grid" id="galleryGrid">
+                <div class="gallery-item" data-cat="spa"><img src="./2.jpg" alt="هد اسپا"></div>
+                <div class="gallery-item" data-cat="hair"><img src="./3.jpg" alt="کراتین"></div>
+                <div class="gallery-item" data-cat="nail"><img src="./nail9.jpg" alt="ناخن"></div>
+                <div class="gallery-item" data-cat="hair"><img src="./hair1.jpg" alt="رنگ"></div>
+                <div class="gallery-item" data-cat="brow"><img src="./maede.jpeg" alt="ابرو"></div>
+                <div class="gallery-item" data-cat="spa"><img src="./2.jpg" alt="اسپا"></div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="sec-hd"><span class="sec-tag">v.</span>
+                <h2 class="sec-title">چرا <b>ویلاپارک</b></h2>
+                <div class="sec-line"></div>
+            </div>
+            <div class="features-grid">
+                <div class="feat-card">
+                    <div class="feat-icon"><i class="fas fa-calendar-check"></i></div>
+                    <div class="feat-content">
+                        <div class="feat-name">رزرو آنلاین هوشمند</div>
+                        <div class="feat-desc">نوبت خودت رو هر ساعتی از شبانه‌روز آنلاین ثبت کن — بدون تماس تلفنی، بدون
+                            معطلی</div>
+                    </div>
+                </div>
+                <div class="feat-card">
+                    <div class="feat-icon"><i class="fas fa-award"></i></div>
+                    <div class="feat-content">
+                        <div class="feat-name">متخصصان تأیید شده</div>
+                        <div class="feat-desc">هر عضو تیم ما دوره‌های تخصصی را گذرانده و با آخرین تکنیک‌های روز دنیا کار
+                            می‌کند</div>
+                    </div>
+                </div>
+                <div class="feat-card">
+                    <div class="feat-icon"><i class="fas fa-star"></i></div>
+                    <div class="feat-content">
+                        <div class="feat-name">محصولات پریمیوم</div>
+                        <div class="feat-desc">استفاده از برندهای معتبر اروپایی و محصولاتی که سلامت پوست و موی شما را در
+                            اولویت می‌گذارند</div>
+                    </div>
+                </div>
+                <div class="feat-card">
+                    <div class="feat-icon"><i class="fas fa-bell"></i></div>
+                    <div class="feat-content">
+                        <div class="feat-name">یادآور هوشمند</div>
+                        <div class="feat-desc">پیام یادآور نوبت از طریق واتساپ و پیامک — دیگه نوبتت رو فراموش نمی‌کنی
+                        </div>
+                    </div>
+                </div>
+                <div class="feat-card">
+                    <div class="feat-icon"><i class="fas fa-camera-retro"></i></div>
+                    <div class="feat-content">
+                        <div class="feat-name">آرشیو قبل و بعد</div>
+                        <div class="feat-desc">تاریخچه کامل کارهات همیشه در دسترسه — از فرمول رنگ تا عکس‌های نتیجه کار
+                        </div>
+                    </div>
+                </div>
+                <div class="feat-card">
+                    <div class="feat-icon"><i class="fas fa-feather-alt"></i></div>
+                    <div class="feat-content">
+                        <div class="feat-name">فضای لوکس و آرام</div>
+                        <div class="feat-desc">محیطی طراحی شده برای ریلکس بودن — موزیک، نور و دکور که یه تجربه واقعی
+                            می‌سازن</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="sec-hd"><span class="sec-tag">vi.</span>
+                <h2 class="sec-title">نظر <b>مشتریان</b></h2>
+                <div class="sec-line"></div>
+            </div>
+            <div class="testimonials-track">
+                <div class="testi-card">
+                    <div class="testi-stars">★★★★★</div>
+                    <div class="testi-text">«رنگم رو به بهار سپردم و نتیجه فراتر از تصورم بود. دقیقاً همون رنگ بلوندی که
+                        می‌خواستم. محیط سالن هم خیلی آرامش‌بخشه.»</div>
+                    <div class="testi-foot">
+                        <div class="testi-av">ن</div>
+                        <div>
+                            <div class="testi-name" style="font-weight:700; color:var(--text-dark);">نیلوفر رستمی</div>
+                            <div style="font-size:12px; color:var(--ruby);">رنگ و هایلایت</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testi-card">
+                    <div class="testi-stars">★★★★★</div>
+                    <div class="testi-text">«سارا جان دست طلا داره. کاشت ناخنم از همه جایی که رفتم بهتر بود. خیلی طبیعی
+                        و دقیق. حتماً دوباره میام!»</div>
+                    <div class="testi-foot">
+                        <div class="testi-av">م</div>
+                        <div>
+                            <div class="testi-name" style="font-weight:700; color:var(--text-dark);">مریم کریمی</div>
+                            <div style="font-size:12px; color:var(--ruby);">کاشت ناخن بلند</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testi-card">
+                    <div class="testi-stars">★★★★★</div>
+                    <div class="testi-text">«هد اسپای ویلاپارک یکی از بهترین تجربه‌های زندگیمه! بعد از کراتین هم موهام
+                        مثل ابریشم شده. عالی بود.»</div>
+                    <div class="testi-foot">
+                        <div class="testi-av">س</div>
+                        <div>
+                            <div class="testi-name" style="font-weight:700; color:var(--text-dark);">سپیده احمدپور</div>
+                            <div style="font-size:12px; color:var(--ruby);">هد اسپا + کراتین</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="contact">
+            <div class="sec-hd"><span class="sec-tag">vii.</span>
+                <h2 class="sec-title">مکان و <b>تماس</b></h2>
+                <div class="sec-line"></div>
+            </div>
+            <div class="contact-layout">
+                <div class="contact-info">
+                    <div class="contact-brand">Villa <span>Park</span></div>
+                    <div class="contact-tagline">سالن زیبایی ویلاپارک — مهرشهر کرج</div>
+                    <div class="contact-row">
+                        <div class="contact-ico"><i class="fa-solid fa-location-dot"></i></div>
+                        <div>
+                            <div class="contact-label">آدرس</div>
+                            <div class="contact-value">مهرشهر کرج، انتهای خیابان ۳</div>
+                        </div>
+                    </div>
+                    <div class="contact-row">
+                        <div class="contact-ico"><i class="fa-solid fa-phone"></i></div>
+                        <div>
+                            <div class="contact-label">تلفن</div>
+                            <div class="contact-value">۰۹۱۲-۸۴۶-۸۹۱۲</div>
+                        </div>
+                    </div>
+                    <div class="contact-row">
+                        <div class="contact-ico"><i class="fa-regular fa-clock"></i></div>
+                        <div>
+                            <div class="contact-label">ساعات کاری</div>
+                            <div class="contact-value">شنبه تا پنج‌شنبه · ۹ صبح تا ۹ شب</div>
+                        </div>
+                    </div>
+                    <div class="contact-row">
+                        <div class="contact-ico"><i class="fa-brands fa-instagram"></i></div>
+                        <div>
+                            <div class="contact-label">اینستاگرام</div>
+                            <div class="contact-value">@villapark.beautysalon</div>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://instagram.com/villapark.beautysalon" class="soc-btn"><i
+                                class="fa-brands fa-instagram"></i></a>
+                        <a href="https://wa.me/989128468912" class="soc-btn"><i class="fa-brands fa-whatsapp"></i></a>
+                        <a href="tel:+989128468912" class="soc-btn"><i class="fa-solid fa-phone"></i></a>
+                    </div>
+                </div>
+                <div class="map-placeholder">
+                    <div class="map-icon"><i class="fa-solid fa-map-pin"></i></div>
+                    <div class="contact-brand" style="font-size:20px; margin:0;">Villa Park</div>
+                    <div style="font-size:14px; color:var(--text-m); font-weight:600;">مهرشهر کرج، انتهای خیابان ۳</div>
+                    <a href="https://maps.google.com/?q=مهرشهر+کرج+سالن+زیبایی+ویلاپارک" class="btn-ghost"
+                        style="margin-top:20px; padding: 10px 24px;">مشاهده روی نقشه ↗</a>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <div class="footer-inner">
+                <div>
+                    <div class="footer-brand-name">Villa Park</div>
+                    <div class="footer-desc">سالن زیبایی ویلاپارک — فضایی لوکس برای تجربه‌ای متفاوت از زیبایی در مهرشهر
+                        کرج</div>
+                    <div class="social-links" style="margin-top: 20px;">
+                        <a href="https://instagram.com/villapark.beautysalon" class="soc-btn"
+                            style="width:40px; height:40px; font-size:16px;"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://wa.me/989128468912" class="soc-btn"
+                            style="width:40px; height:40px; font-size:16px;"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <div class="footer-col-title">خدمات</div>
+                    <ul class="footer-links">
+                        <li><a href="#">مانیکور و پدیکور</a></li>
+                        <li><a href="#">کاشت ناخن</a></li>
+                        <li><a href="#">رنگ و هایلایت</a></li>
+                        <li><a href="#">کراتین</a></li>
+                        <li><a href="#">هد اسپا</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-col-title">سالن</div>
+                    <ul class="footer-links">
+                        <li><a href="#">درباره ما</a></li>
+                        <li><a href="#">تیم متخصصان</a></li>
+                        <li><a href="#">نمونه‌کارها</a></li>
+                        <li><a href="#">نظرات مشتریان</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-col-title">دسترسی سریع</div>
+                    <ul class="footer-links">
+                        <li><a href="#appointment">رزرو آنلاین</a></li>
+                        <li><a href="#">لیست قیمت‌ها</a></li>
+                        <li><a href="#contact">تماس با ما</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span class="footer-copy">© ۱۴۰۵ سالن زیبایی ویلاپارک — تمامی حقوق محفوظ است</span>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        function toggleMenu() {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('open');
+        }
+        hamburger.addEventListener('click', toggleMenu);
+        mobileLinks.forEach(link => link.addEventListener('click', () => {
+            if (mobileMenu.classList.contains('open')) toggleMenu();
+        }));
+
+        function filterGallery(btn, cat) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('.gallery-item').forEach(item => {
+                const show = cat === 'all' || item.dataset.cat === cat;
+                item.style.opacity = show ? '1' : '0.2';
+                item.style.pointerEvents = show ? 'auto' : 'none';
+            });
+        }
+
+        const personnel = [
+            { name: 'بهار خمسه', services: ['رنگ و هایلایت', 'کراتین', 'بریج'] },
+            { name: 'سارا احمدی', services: ['مانیکور', 'کاشت بلند', 'نقاشی ناخن'] },
+            { name: 'مائده رضایی', services: ['میکروبلیدینگ', 'لمینت ابرو', 'هنا'] },
+            { name: 'لیلا موسوی', services: ['هد اسپا', 'پاکسازی پوست', 'اکستنشن مژه'] }
+        ];
+
+        let selectedPersonnel = null, selectedService = null, selectedDate = null, selectedTime = null;
+        let currentMonth = new Date().getMonth();
+        let currentYear = new Date().getFullYear();
+
+        function renderPersonnel() {
+            const container = document.getElementById('personnelList');
+            container.innerHTML = personnel.map(p =>
+                `<div class="neo-pill ${selectedPersonnel?.name === p.name ? 'active' : ''}" data-name="${p.name}">${p.name}</div>`
+            ).join('');
+            document.querySelectorAll('.personnel-select .neo-pill').forEach(card => {
+                card.addEventListener('click', function () {
+                    selectedPersonnel = personnel.find(p => p.name === this.dataset.name);
+                    selectedService = null;
+                    renderPersonnel();
+                    renderServices();
+                    resetBooking();
+                });
+            });
+        }
+
+        function renderServices() {
+            const container = document.getElementById('serviceList');
+            if (!selectedPersonnel) {
+                container.innerHTML = '<span style="font-size:14px; color:var(--text-m); font-weight:600;">ابتدا یک متخصص انتخاب کنید</span>';
+                return;
+            }
+            container.innerHTML = selectedPersonnel.services.map(s =>
+                `<div class="neo-pill ${selectedService === s ? 'active' : ''}" data-service="${s}">${s}</div>`
+            ).join('');
+            document.querySelectorAll('.service-select .neo-pill').forEach(opt => {
+                opt.addEventListener('click', function () {
+                    selectedService = this.dataset.service;
+                    renderServices();
+                    resetBooking();
+                });
+            });
+        }
+
+        function renderCalendar() {
+            const monthNames = ['ژانویه', 'فوریه', 'مارس', 'آوریل', 'مه', 'ژوئن', 'ژوئیه', 'اوت', 'سپتامبر', 'اکتبر', 'نوامبر', 'دسامبر'];
+            document.getElementById('monthTitle').textContent = `${monthNames[currentMonth]} ${currentYear}`;
+            const daysGrid = document.getElementById('daysGrid');
+            const jsDay = new Date(currentYear, currentMonth, 1).getDay();
+            const firstDay = (jsDay + 1) % 7;
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+            daysGrid.innerHTML = '';
+            for (let i = 0; i < firstDay; i++) {
+                const emptyCell = document.createElement('div');
+                emptyCell.className = 'day-cell'; emptyCell.style.visibility = 'hidden'; emptyCell.style.pointerEvents = 'none';
+                daysGrid.appendChild(emptyCell);
+            }
+            for (let d = 1; d <= daysInMonth; d++) {
+                const cell = document.createElement('div');
+                cell.className = 'day-cell'; cell.textContent = d;
+                const dateObj = new Date(currentYear, currentMonth, d);
+                const dateStr = `${currentYear}-${currentMonth}-${d}`;
+                if (dateObj < new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate())) {
+                    cell.classList.add('disabled');
+                }
+                if (dateStr === selectedDate) cell.classList.add('selected');
+                cell.addEventListener('click', function () {
+                    if (this.classList.contains('disabled')) return;
+                    selectedDate = dateStr; selectedTime = null;
+                    renderCalendar(); renderTimeSlots(); checkSubmitReady();
+                });
+                daysGrid.appendChild(cell);
+            }
+        }
+
+        function renderTimeSlots() {
+            const container = document.getElementById('timeSlots');
+            if (!selectedDate) {
+                container.innerHTML = '<span style="font-size:14px; color:var(--text-m); font-weight:600;">ابتدا تاریخ را انتخاب کنید</span>';
+                return;
+            }
+            const slots = ['۱۰:۰۰', '۱۱:۰۰', '۱۴:۳۰', '۱۶:۰۰', '۱۷:۳۰'];
+            container.innerHTML = slots.map(time =>
+                `<div class="time-slot ${time === selectedTime ? 'slot-selected' : ''}" data-time="${time}">${time}</div>`
+            ).join('');
+            document.querySelectorAll('.time-slot').forEach(slot => {
+                slot.addEventListener('click', function () {
+                    selectedTime = this.dataset.time;
+                    renderTimeSlots(); checkSubmitReady();
+                });
+            });
+        }
+
+        function resetBooking() {
+            selectedDate = null; selectedTime = null;
+            renderCalendar(); renderTimeSlots(); checkSubmitReady();
+        }
+
+        function checkSubmitReady() {
+            document.getElementById('submitBooking').disabled = !(selectedPersonnel && selectedService && selectedDate && selectedTime);
+        }
+
+        document.getElementById('prevMonth').addEventListener('click', () => {
+            currentMonth--; if (currentMonth < 0) { currentMonth = 11; currentYear--; }
+            resetBooking();
+        });
+        document.getElementById('nextMonth').addEventListener('click', () => {
+            currentMonth++; if (currentMonth > 11) { currentMonth = 0; currentYear++; }
+            resetBooking();
+        });
+
+        renderPersonnel(); renderServices(); renderCalendar();
+    </script>
+</body>
+
+</html>
